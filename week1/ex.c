@@ -3,19 +3,6 @@
 #include <string.h>
 #include "linklist.h"
 
-int main(){
-	Node*first;
-	Node*banned;
-	banned=newNode();
-	first=newNode();
-	int i;
-	ReadFile(first,"vanban.txt");
-	ReadFile(banned,"stopw.txt");
-	deleteWord(first,banned);
-	printf("Ket qua:\n");
-	printNode(first);	
-}
-
 int findChar(char*word, char a){
 	int i;
 	int check=-1;
@@ -167,7 +154,6 @@ void ReadFile(Node*first,char*fileName){
 	f=fopen(fileName,"r+");
 	while(!feof(f)){
 		fgets(str,160,f);
-		printf("%s",str);
 		spellByLine(str);
 		while(strlen(str)!=0){
 			tmp=cutString(str);
@@ -182,4 +168,17 @@ void ReadFile(Node*first,char*fileName){
 		}
 		i++;
 	}
+}
+
+int main(){
+	Node*first;
+	Node*banned;
+	banned=newNode();
+	first=newNode();
+	int i;
+	ReadFile(first,"vanban.txt");
+	ReadFile(banned,"stopw.txt");
+	deleteWord(first,banned);
+	printf("Ket qua:\n");
+	printNode(first);	
 }
