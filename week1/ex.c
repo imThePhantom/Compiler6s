@@ -16,34 +16,6 @@ int main(){
 	printNode(first);	
 }
 
-void ReadFile(Node*first,char*fileName){
-	FILE*f;
-	char*tmp;
-	Node*temp;
-	Node*ref;
-	char ab[10];
-	int i=1;
-	char str[161];
-	f=fopen(fileName,"r+");
-	while(!feof(f)){
-		fgets(str,160,f);
-		printf("%s",str);
-		spellByLine(str);
-		while(strlen(str)!=0){
-			tmp=cutString(str);
-			temp=newNodeContent(tmp);
-			ref=searchNode(first,temp);
-			if(ref==NULL){
-				addNodeSort(first,temp);
-				addCol(temp,i);
-			}else{
-				addCol(ref,i);
-			}
-		}
-		i++;
-	}
-}
-
 int findChar(char*word, char a){
 	int i;
 	int check=-1;
@@ -181,5 +153,33 @@ void deleteWord(Node*first,Node*banned){
 		else{
 			first=first->next;
 		}
+	}
+}
+
+void ReadFile(Node*first,char*fileName){
+	FILE*f;
+	char*tmp;
+	Node*temp;
+	Node*ref;
+	char ab[10];
+	int i=1;
+	char str[161];
+	f=fopen(fileName,"r+");
+	while(!feof(f)){
+		fgets(str,160,f);
+		printf("%s",str);
+		spellByLine(str);
+		while(strlen(str)!=0){
+			tmp=cutString(str);
+			temp=newNodeContent(tmp);
+			ref=searchNode(first,temp);
+			if(ref==NULL){
+				addNodeSort(first,temp);
+				addCol(temp,i);
+			}else{
+				addCol(ref,i);
+			}
+		}
+		i++;
 	}
 }
