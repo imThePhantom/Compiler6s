@@ -20,8 +20,7 @@ void ReadFile(Node*first,char*fileName){
 	FILE*f;
 	char*tmp;
 	Node*temp;
-	Node*search;
-	Node*search1;
+	Node*ref;
 	char ab[10];
 	int i=1;
 	char str[161];
@@ -33,12 +32,12 @@ void ReadFile(Node*first,char*fileName){
 		while(strlen(str)!=0){
 			tmp=cutString(str);
 			temp=newNodeContent(tmp);
-			search=searchNode(first,temp);
-			if(search==NULL){
+			ref=searchNode(first,temp);
+			if(ref==NULL){
 				addNodeSort(first,temp);
 				addCol(temp,i);
 			}else{
-				addCol(search,i);
+				addCol(ref,i);
 			}
 		}
 		i++;
