@@ -31,13 +31,12 @@ void addWord(char *str, int line);
 
 int main(){
   FILE *fin,*fout;
-  int i_line,startSentence; // use i_line to index line when read text
+  int i_line,startSentence;
   int i,j;
   char c;
   char str[80];
-
   initTable();
-  // read stop words from stopw.txt file
+
   if((fin = fopen("stopw.txt","r")) == NULL){
     printf("Cant read file stopw.txt\n");exit(1);
   }
@@ -50,7 +49,7 @@ int main(){
   fclose(fin);
   qsort(stop.words,stop.size,sizeof(char*),compare_str);
       
-  // read text from vanban.txt file
+
   if((fin = fopen("vanban.txt","r")) == NULL){
     printf("Cant read file vanban.txt\n");exit(1);
   }
@@ -60,7 +59,7 @@ int main(){
   startSentence = 1;
   while(!feof(fin)){
     if ((c=fgetc(fin)) != EOF){
-      // if a word is alphabet add it to str string
+
       if(isAlphabet(c)){
         str[i++] = c;
       } else {
@@ -95,21 +94,16 @@ void initTable(){
 }
 
 int checkWord(char* str, int isStartSentence){
-  // str contains no space or numberic or ending-word character.
+
   int i;
-  // check string's len
   if (strlen(str) < 1){
     return 0;
   }
 
-  // check the first letter
   if (('A' <= str[0] && 'Z'>= str[0]) && !isStartSentence){
     return 0;
   }
-
   toLower(str);
-
-
   return findInStop(str);
 }
 
@@ -159,13 +153,8 @@ void addWord(char* str,int line){
   table.table[(table.size)++] = index;
 }
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
 #define EndSentenceCharacters ".?!"
 
-// to lower a string
 void toLower(char* str){
   int i;
   for (i = 0; i < strlen(str); i++){
@@ -175,12 +164,10 @@ void toLower(char* str){
   }
 }
 
-// check a character is an alphabetic or not
 int isAlphabet(char c){
   return (c<= 'z' && c >='a')||(c<='Z' && c >= 'A');
 }
 
-// check a character is a character that end of sentence or not
 int isEndSentenceCharacter(char c){
   int i;
   for(i=0;i<strlen(EndSentenceCharacters);i++){
