@@ -9,7 +9,6 @@ int main(){
 	banned=newNode();
 	first=newNode();
 	int i;
-
 	ReadFile(first,"vanban.txt");
 	ReadFile(banned,"stopw.txt");
 	deleteWord(first,banned);
