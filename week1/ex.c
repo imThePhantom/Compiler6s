@@ -130,7 +130,7 @@ void readByLine(Node*first,char*fileName){
 	}
 }
 
-void deleteWord(Node*first,Node*banned){
+void DeleteWord(Node*first,Node*banned){
 	Node*tmp;
 	while(banned->next!=NULL && first->next!=NULL){
 		if(compare(banned->next,first->next)==0){
@@ -176,9 +176,11 @@ int main(){
 	banned=newNode();
 	first=newNode();
 	int i;
-	ReadFile(first,"vanban.txt");
+	char fin[80];
+	printf("Nhap file vao: "); scanf("%s", &fin);
+	ReadFile(first,fin);
 	ReadFile(banned,"stopw.txt");
-	deleteWord(first,banned);
+	DeleteWord(first,banned);
 	printf("Ket qua:\n");
 	printNode(first);	
 }
