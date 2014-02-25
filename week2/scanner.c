@@ -66,14 +66,27 @@ Token* readIdentKeyword(void)
 Token* readNumber(void) 
 {
   Token *token=makeToken(TK_NUMBER,lineNo,colNo);
-  int count=0;
-  while((currentChar!=EOF)&&(charCodes[currentChar]==CHAR_DIGIT))
+  int count=0, period=0;
+  while((currentChar!=EOF)&&(charCodes[currentChar]==CHAR_DIGIT||charCodes[currentChar]==CHAR_PERIOD))
   {
     if(count<MAX_IDENT_LEN) token->string[count++]=(char)currentChar;
+    if(charCodes[currentChar]==CHAR_PERIOD) {
+      period+=1;
+    }
     readChar();
   }
+  if (period==1) {
+    token->tokenType=TK_FLOAT;
+    token->value=atof(token->string);
+    if(charCodes[(int)token->string[count-1]]==CHAR_PERIOD) {
+      token->string[count] = '0';
+      count++;
+    }
+  }
+  else if (period>1) error(ERR_INVALIDNUMBER,lineNo,colNo);
+  else token->value=atoi(token->string);
+
   token->string[count]='\0';
-  token->value=atoi(token->string);
   return token;
 }
 
@@ -240,6 +253,7 @@ void printToken(Token *token)
   case TK_NUMBER: printf("TK_NUMBER(%s)\n", token->string); break;
   case TK_CHAR: printf("TK_CHAR(\'%s\')\n", token->string); break;
   case TK_EOF: printf("TK_EOF\n"); break;
+  case TK_FLOAT: printf("TK_FLOAT(%f)\n", token->value); break;
 
   case KW_PROGRAM: printf("KW_PROGRAM\n"); break;
   case KW_CONST: printf("KW_CONST\n"); break;
