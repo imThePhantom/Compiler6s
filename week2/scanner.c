@@ -1,4 +1,3 @@
-
 /* Scanner
  * @copyright (c) 2008, Hedspi, Hanoi University of Technology
  * @author Huu-Duc Nguyen
@@ -6,14 +5,12 @@
  */
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 
 #include "reader.h"
 #include "charcode.h"
 #include "token.h"
 #include "error.h"
-#include "scanner.h"
 
 
 extern int lineNo;
@@ -115,7 +112,7 @@ Token* readConstChar(void)
   return token;
 }
 
-char checkSlash(char t){
+char checkSingle(char t){
   char temp;
   switch (t){
   case 'n': temp='\n'; break;
@@ -131,10 +128,10 @@ Token* readString(void){
   readChar();
   while (currentChar != EOF && charCodes[currentChar] != CHAR_DOUBLEQUOTE){
     if (count < MAX_STR_LEN){
-      if (charCodes[currentChar]==CHAR_BACKSLASH) {
+      if (charCodes[currentChar]==CHAR_SINGLE) {
 	readChar();
 	if (currentChar=='\n') ;
-	else {currentChar=checkSlash(currentChar);
+	else {currentChar=checkSingle(currentChar);
 	  token->strvalue[count++] = (char)currentChar;}
       }
       else token->strvalue[count++] = (char)currentChar;
