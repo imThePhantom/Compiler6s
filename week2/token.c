@@ -64,7 +64,7 @@ char *tokenToString(TokenType tokenType) {
   switch (tokenType) {
   case TK_NONE: return "None";
   case TK_IDENT: return "an identification";
-  case TK_INT: return "a integer number";
+  case TK_NUMBER: return "a integer number";
   case TK_FLOAT: return "a float number";
   case TK_CHAR: return "a constant char";
   case TK_STR: return "a string";

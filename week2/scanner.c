@@ -229,7 +229,7 @@ Token* getToken(void) {
 	error(ERR_INVALIDNUMBER, ln, cn);
 	token->tokenType = TK_NONE;
 	return token;
-      } else if (token->tokenType == TK_INT){
+      } else if (token->tokenType == TK_NUMBER){
 	token->tokenType = TK_FLOAT;
 	int i;
 	if (strlen(token->string) >= MAX_IDENT_LEN){
