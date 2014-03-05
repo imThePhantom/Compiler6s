@@ -148,13 +148,15 @@ Token* readString(void){
   readChar();
   while (currentChar != EOF && charCodes[currentChar] != CHAR_DOUBLEQUOTE){
     if (count < MAX_STR_LEN){
-      if (charCodes[currentChar]==CHAR_SINGLE) {
-	readChar();
-	if (currentChar=='\n') ;
-	else {currentChar=checkSingle(currentChar);
-	  token->strvalue[count++] = (char)currentChar;}
-      }
-      else token->strvalue[count++] = (char)currentChar;
+    	if (currentChar == '\n') error (ERR_INVALIDSTRING, token->lineNo, token->colNo);
+      	else if (charCodes[currentChar]==CHAR_SINGLE) {
+			readChar();
+		if (currentChar=='\n') ;
+		else if ((charCodes[currentChar] == CHAR_DIGIT) && currentChar != 0) error(ERR_INVALIDSTRING, token->lineNo, token->colNo);
+		else {currentChar=checkSingle(currentChar);
+	  	token->strvalue[count++] = (char)currentChar;}
+      	}
+      	else token->strvalue[count++] = (char)currentChar;
     }
     readChar();
   }
