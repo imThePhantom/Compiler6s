@@ -4,22 +4,25 @@ LIBS =  -lm
 
 all: scanner
 
-scanner: scanner.o reader.o charcode.o token.o error.o
-	${CC} scanner.o reader.o charcode.o token.o error.o -o scanner
+scanner: main.o scanner.o reader.o charcode.o token.o error.o
+	${CC} main.o scanner.o reader.o charcode.o token.o error.o -o scanner
 
-reader.o: reader.c reader.h
-	${CC} ${CFLAGS} reader.c
+main.o: main.c
+	${CC} ${CFLAGS} main.c
 
 scanner.o: scanner.c
 	${CC} ${CFLAGS} scanner.c
 
-charcode.o: charcode.c charcode.h
+reader.o: reader.c
+	${CC} ${CFLAGS} reader.c
+
+charcode.o: charcode.c
 	${CC} ${CFLAGS} charcode.c
 
-token.o: token.c token.h
+token.o: token.c
 	${CC} ${CFLAGS} token.c
 
-error.o: error.c error.h
+error.o: error.c
 	${CC} ${CFLAGS} error.c
 
 clean:
